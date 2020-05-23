@@ -106,7 +106,7 @@ class AppointmentsController {
         {
           model: User,
           as: 'provider',
-          attributes: [' name', 'email'],
+          attributes: ['name', 'email'],
         },
       ],
     });
@@ -116,6 +116,7 @@ class AppointmentsController {
         error: 'you don t have permissions to cancel this appointment',
       });
     }
+
     const dataWithSub = subHours(appointment.date, 2);
 
     if (isBefore(dataWithSub, new Date())) {
@@ -128,7 +129,7 @@ class AppointmentsController {
     await appointment.save();
 
     await Email.sendMail({
-      to: `${appointment.provider.name} < ${appointment.provider.Email}>`,
+      to: `${appointment.provider.name} <${appointment.provider.Email}>`,
       subject: 'Agendamento cancelado',
       text: 'voce tem um novo cancelamento',
     });
